@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <!-- meta приколы -->
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create you ad</title>
+</head>
+<body>
+    <h1>Create you ad</h1>
+    <form action="{% url 'create' %}" method="post">
+        {% csrf_token %}
+<!--            <p><label class="form-label" for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>{{ form.title }}</p>-->
+<!--            <div class="form-error">{{ form.title.errors }}</div>-->
+<!--        {{ form }}-->
+            {% for el in form %}
+
+                {% if el == form.show_gender %}
+                    {{ form.show_gender }} {{ form.show_age }}<br>
+                    {{ form.show_gender.errors }} {{ form.show_age.errors }}<hr>
+                {% endif %}
+
+                {% if el == form.gender_pr %}
+                    <b>Приоритет:</b><br>
+                    {{ form.gender_pr }} {{form.age_pr}} {{form.device_pr}} {{form.os_pr}} {{form.solvency_pr}}<br>
+                    {{ form.gender_pr.errors }} {{form.age_pr.errors}} {{form.device_pr.errors}} {{form.os_pr.errors}} {{form.solvency_pr.errors}}<hr>
+                {% endif %}
+
+                {% if el != form.show_age and el != form.show_gender and el != form.gender_pr and el != form.age_pr and el != form.device_pr and el != form.os_pr and el != form.solvency_pr %}
+                    {{ el }}<br>{{ el.errors }}<hr>
+                {% endif %}
+
+            {% endfor %}
+        <button type="submit">Создать</button>
+    </form>
+</body>
+</html>
